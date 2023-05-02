@@ -15,7 +15,52 @@ class CartItem extends React.Component {
             img: ''
 
         }
+        // this.testing();
+        // this.increaseQuality = this.increaseQuality.bind(this);
     }
+    /*
+    testing () {
+        const promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('done');
+
+            }, 5000);
+        })
+
+        promise.then (() => {
+            this.setState({qty: this.state.qty + 10 });
+            this.setState({qty: this.state.qty + 10 });
+            this.setState({qty: this.state.qty + 10 });
+
+            console.log(this.state.qty);
+        })
+    }
+
+    */
+
+    increaseQuality = () => {
+        // this.state.qty += 1 ;
+        console.log(this.state.qty);
+        // setState form 1
+        // this.setState({
+        //     qty: this.state.qty + 1,
+        // })
+
+        // setState form 2
+        this.setState((prevState) => {
+            return {
+                qty: prevState.qty + 1
+            }
+        })
+    }
+
+    decreaseQuality = () => {
+        if(this.state.qty > 0)
+        this.setState({
+            qty: this.state.qty - 1,
+        })
+    }
+
     render () {
         const {price, title, qty} = this.state ;
         return (
@@ -29,9 +74,12 @@ class CartItem extends React.Component {
                     <div style={{color: '#777'}}>Rs {price}</div>
                     <div style={{color: '#777'}}>Qty: {qty}</div>
                     <div className="cart-item-action">
-                        <img alt='increase' className="action-icons" src={plus} />
-                        <img alt='decrease' className="action-icons" src={minus}></img>
-                        <img alt='delete' className="action-icons" src={delete1}></img>
+                        {/* first way */}
+                        {/* <img alt='increase' className="action-icons" src={plus} onClick={this.increaseQuality.bind(this)} /> */}
+                        <img alt='increase' className="action-icons" src={plus} onClick={this.increaseQuality} />
+
+                        <img alt='decrease' className="action-icons" src={minus} onClick={this.decreaseQuality} />
+                        <img alt='delete' className="action-icons" src={delete1} />
 
                     </div>
                 </div>
@@ -43,6 +91,7 @@ class CartItem extends React.Component {
 }
 
 const styles = {
+    image2: 30,
     image: {
         height: 110,
         width: 110,
@@ -50,5 +99,6 @@ const styles = {
         background: '#ccc'
     }
 }
+
 
 export default CartItem;
