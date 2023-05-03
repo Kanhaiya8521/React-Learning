@@ -6,18 +6,18 @@ import minus from './images/minus.svg';
 
 
 class CartItem extends React.Component {
-    constructor () {
-        super() ;
-        this.state = {
-            price: 999,
-            title: 'Phone',
-            qty: 1,
-            img: ''
+    // constructor () {
+    //     super() ;
+    //     this.state = {
+    //         price: 999,
+    //         title: 'Phone',
+    //         qty: 1,
+    //         img: ''
 
-        }
-        // this.testing();
-        // this.increaseQuality = this.increaseQuality.bind(this);
-    }
+    //     }
+    //     // this.testing();
+    //     // this.increaseQuality = this.increaseQuality.bind(this);
+    // }
     /*
     testing () {
         const promise = new Promise((resolve, reject) => {
@@ -40,7 +40,7 @@ class CartItem extends React.Component {
 
     increaseQuality = () => {
         // this.state.qty += 1 ;
-        console.log(this.state.qty);
+        // console.log(this.state.qty);
         // setState form 1
         // this.setState({
         //     qty: this.state.qty + 1,
@@ -55,14 +55,17 @@ class CartItem extends React.Component {
     }
 
     decreaseQuality = () => {
-        if(this.state.qty > 0)
+        console.log('this.props.product.qty', this.props.product.qty);
+        if(this.props.product.qty > 0)
         this.setState({
-            qty: this.state.qty - 1,
+            qty: this.props.product.qty - 1,
         })
     }
 
     render () {
-        const {price, title, qty} = this.state ;
+        // console.log('this.state.product', this.state.product);
+        const {price, title, qty} = this.props.product ;
+        console.log('this.props');
         return (
             <div className="cart-item">
                 <div className="left-block">
@@ -70,7 +73,7 @@ class CartItem extends React.Component {
                 </div>
 
                 <div className="right-block">
-                    <div style={{fontSize: 25}}>{this.state.title}</div>
+                    <div style={{fontSize: 25}}>{title}</div>
                     <div style={{color: '#777'}}>Rs {price}</div>
                     <div style={{color: '#777'}}>Qty: {qty}</div>
                     <div className="cart-item-action">
