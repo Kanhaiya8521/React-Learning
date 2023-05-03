@@ -38,29 +38,29 @@ class CartItem extends React.Component {
 
     */
 
-    increaseQuality = () => {
-        // this.state.qty += 1 ;
-        // console.log(this.state.qty);
-        // setState form 1
-        // this.setState({
-        //     qty: this.state.qty + 1,
-        // })
+    // increaseQuality = () => {
+    //     // this.state.qty += 1 ;
+    //     // console.log(this.state.qty);
+    //     // setState form 1
+    //     // this.setState({
+    //     //     qty: this.state.qty + 1,
+    //     // })
 
-        // setState form 2
-        this.setState((prevState) => {
-            return {
-                qty: prevState.qty + 1
-            }
-        })
-    }
+    //     // setState form 2
+    //     this.setState((prevState) => {
+    //         return {
+    //             qty: prevState.qty + 1
+    //         }
+    //     })
+    // }
 
-    decreaseQuality = () => {
-        console.log('this.props.product.qty', this.props.product.qty);
-        if(this.props.product.qty > 0)
-        this.setState({
-            qty: this.props.product.qty - 1,
-        })
-    }
+    // decreaseQuality = () => {
+    //     console.log('this.props.product.qty', this.props.product.qty);
+    //     if(this.props.product.qty > 0)
+    //     this.setState({
+    //         qty: this.props.product.qty - 1,
+    //     })
+    // }
 
     render () {
         // console.log('this.state.product', this.state.product);
@@ -79,7 +79,7 @@ class CartItem extends React.Component {
                     <div className="cart-item-action">
                         {/* first way */}
                         {/* <img alt='increase' className="action-icons" src={plus} onClick={this.increaseQuality.bind(this)} /> */}
-                        <img alt='increase' className="action-icons" src={plus} onClick={this.increaseQuality} />
+                        <img alt='increase' className="action-icons" src={plus} onClick={() => this.props.onIncreaseQuantity(this.props.product)} />
 
                         <img alt='decrease' className="action-icons" src={minus} onClick={this.decreaseQuality} />
                         <img alt='delete' className="action-icons" src={delete1} />
