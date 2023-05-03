@@ -81,7 +81,7 @@ class CartItem extends React.Component {
                         {/* <img alt='increase' className="action-icons" src={plus} onClick={this.increaseQuality.bind(this)} /> */}
                         <img alt='increase' className="action-icons" src={plus} onClick={() => this.props.onIncreaseQuantity(this.props.product)} />
 
-                        <img alt='decrease' className="action-icons" src={minus} onClick={this.decreaseQuality} />
+                        <img alt='decrease' className="action-icons" src={minus} onClick={() => this.props.onDecreaseQuantity(this.props.product)} />
                         <img alt='delete' className="action-icons" src={delete1} />
 
                     </div>
