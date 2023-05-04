@@ -8,11 +8,16 @@ import minus from './images/minus.svg';
 const CartItem = (props) => {
         // console.log('this.state.product', this.state.product);
         const {price, title, qty} = props.product ;
-        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteQuantity } = props ;
+        const {
+              product,
+              onIncreaseQuantity,
+              onDecreaseQuantity,
+              onDeleteQuantity
+             } = props ;
         return (
             <div className="cart-item">
                 <div className="left-block">
-                    <img style={styles.image} />
+                    <img style={styles.image} src={product.img} />
                 </div>
 
                 <div className="right-block">
