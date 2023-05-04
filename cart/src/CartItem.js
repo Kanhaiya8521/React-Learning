@@ -5,68 +5,10 @@ import plus from './images/plus.svg';
 import minus from './images/minus.svg';
 
 
-class CartItem extends React.Component {
-    // constructor () {
-    //     super() ;
-    //     this.state = {
-    //         price: 999,
-    //         title: 'Phone',
-    //         qty: 1,
-    //         img: ''
-
-    //     }
-    //     // this.testing();
-    //     // this.increaseQuality = this.increaseQuality.bind(this);
-    // }
-    /*
-    testing () {
-        const promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve('done');
-
-            }, 5000);
-        })
-
-        promise.then (() => {
-            this.setState({qty: this.state.qty + 10 });
-            this.setState({qty: this.state.qty + 10 });
-            this.setState({qty: this.state.qty + 10 });
-
-            console.log(this.state.qty);
-        })
-    }
-
-    */
-
-    // increaseQuality = () => {
-    //     // this.state.qty += 1 ;
-    //     // console.log(this.state.qty);
-    //     // setState form 1
-    //     // this.setState({
-    //     //     qty: this.state.qty + 1,
-    //     // })
-
-    //     // setState form 2
-    //     this.setState((prevState) => {
-    //         return {
-    //             qty: prevState.qty + 1
-    //         }
-    //     })
-    // }
-
-    // decreaseQuality = () => {
-    //     console.log('this.props.product.qty', this.props.product.qty);
-    //     if(this.props.product.qty > 0)
-    //     this.setState({
-    //         qty: this.props.product.qty - 1,
-    //     })
-    // }
-
-    render () {
+const CartItem = (props) => {
         // console.log('this.state.product', this.state.product);
-        const {price, title, qty} = this.props.product ;
-        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteQuantity } = this.props ;
-        console.log('this.props');
+        const {price, title, qty} = props.product ;
+        const {product, onIncreaseQuantity, onDecreaseQuantity, onDeleteQuantity } = props ;
         return (
             <div className="cart-item">
                 <div className="left-block">
@@ -91,7 +33,6 @@ class CartItem extends React.Component {
             </div>
 
         );
-    }
 }
 
 const styles = {
