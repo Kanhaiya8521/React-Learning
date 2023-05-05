@@ -2,7 +2,7 @@ import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
 import  {db} from './index';
-import { collection, getDocs } from "firebase/firestore"; 
+import { collection, getDocs, onSnapshot } from "firebase/firestore"; 
 
 class App extends React.Component {
 
@@ -15,20 +15,34 @@ class App extends React.Component {
     }
 }
 
-async componentDidMount () {
+componentDidMount () {
 
-  const querySnapshot = await getDocs(collection(db, "products"));
-  console.log('querySnapshot', querySnapshot);
-  const products = querySnapshot.docs.map((doc) => {
-    // console.log(doc);
-    return {
-      ...doc.data(), 
-      id: doc.id
-    }
-  })
-  this.setState({
-    products: products,
-    loading: false
+  // const querySnapshot = await getDocs(collection(db, "products"));
+  // console.log('querySnapshot', querySnapshot);
+  // const products = querySnapshot.docs.map((doc) => {
+  //   // console.log(doc);
+  //   return {
+  //     ...doc.data(), 
+  //     id: doc.id
+  //   }
+  // })
+  onSnapshot(collection(db, "products"), (querySnapshot) => {
+    const products = querySnapshot.docs.map((doc) => {
+      // console.log('doc.id', doc.data());
+      // this.setState({
+      //   products: [...this.state.products, {...doc.data(), id: doc.id}]
+      // })
+      //    return {
+      //     ...doc.data(), 
+      //     id: doc.id,
+      // }
+      return doc.data()
+    });
+    console.log(products);
+    this.setState({
+      products: products,
+      loading: false
+    })
   })
 }
 handleIncreaseQuantity = (product) => {
