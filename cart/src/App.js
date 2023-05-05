@@ -1,6 +1,8 @@
 import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
+import  {db} from './index';
+import { collection, getDocs } from "firebase/firestore"; 
 
 class App extends React.Component {
 
@@ -8,33 +10,26 @@ class App extends React.Component {
     super() ;
     this.state = {
         products: [
-            {
-                price: 99,
-                title: 'Watch',
-                qty: 1,
-                img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80',
-                id: 1
-    
-            },
-            {
-                price: 999,
-                title: 'Phone',
-                qty: 10,
-                img: 'https://images.unsplash.com/photo-1525598912003-663126343e1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                id: 2
-    
-            },
-            {
-                price: 999,
-                title: 'Laptop',
-                qty: 4,
-                img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
-                id: 3
-    
-            }
-        ]
-
+        ],
+        loading: true
     }
+}
+
+async componentDidMount () {
+
+  const querySnapshot = await getDocs(collection(db, "products"));
+  console.log('querySnapshot', querySnapshot);
+  const products = querySnapshot.docs.map((doc) => {
+    // console.log(doc);
+    return {
+      ...doc.data(), 
+      id: doc.id
+    }
+  })
+  this.setState({
+    products: products,
+    loading: false
+  })
 }
 handleIncreaseQuantity = (product) => {
     console.log('Hey increase the qty');
@@ -87,7 +82,7 @@ getCartTotal = () => {
 }
 
 render() {
-    const { products } = this.state
+    const { products, loading } = this.state
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
@@ -97,6 +92,7 @@ render() {
         onDecreaseQuantity={this.handleDecreaseQuantity}
         onDeleteQuantity={this.handleDeleteQuantity} 
         />
+        {loading && <h1> Loading products...</h1>}
         <div style={{padding: 10, fontSize: 20}}>TOTAL: {this.getCartTotal()} </div>
       </div>
     );
