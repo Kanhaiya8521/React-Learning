@@ -2,7 +2,7 @@ import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
 import  {db} from './index';
-import { collection, getDocs, onSnapshot } from "firebase/firestore"; 
+import { collection, getDocs, onSnapshot, doc, addDoc } from "firebase/firestore"; 
 
 class App extends React.Component {
 
@@ -32,13 +32,12 @@ componentDidMount () {
       // this.setState({
       //   products: [...this.state.products, {...doc.data(), id: doc.id}]
       // })
-      //    return {
-      //     ...doc.data(), 
-      //     id: doc.id,
-      // }
-      return doc.data()
+         return {
+          ...doc.data(), 
+          id: doc.id,
+      }
     });
-    console.log(products);
+    // console.log(products);
     this.setState({
       products: products,
       loading: false
@@ -95,11 +94,27 @@ getCartTotal = () => {
   return cartTotal;
 }
 
+addProduct = async(e) => {
+  console.log('Data has been added');
+  await addDoc(collection(db, "products"), {
+    title: "Gaming Device",
+    qty: 3,
+    img: "https://img.etimg.com/thumb/msid-59424968,width-640,resizemode-4,imgsize-182738/nokia-1100.jpg",
+    price: 899,
+  });
+  // console.log('products', products);
+  // this.setState({
+  //   products: products,
+  //   id: products.id,
+  // })
+}
+
 render() {
     const { products, loading } = this.state
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
+        <button onClick={this.addProduct} style={{padding: 20, fontSize: 25}}>Add a product</button>
         <Cart
         products={products}
         onIncreaseQuantity={this.handleIncreaseQuantity}
