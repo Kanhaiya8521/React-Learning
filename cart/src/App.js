@@ -2,7 +2,7 @@ import React from 'react';
 import Cart from './Cart';
 import Navbar from './Navbar';
 import  {db} from './index';
-import { collection, getDocs, onSnapshot, doc, addDoc } from "firebase/firestore"; 
+import { collection, onSnapshot, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore"; 
 
 class App extends React.Component {
 
@@ -16,16 +16,6 @@ class App extends React.Component {
 }
 
 componentDidMount () {
-
-  // const querySnapshot = await getDocs(collection(db, "products"));
-  // console.log('querySnapshot', querySnapshot);
-  // const products = querySnapshot.docs.map((doc) => {
-  //   // console.log(doc);
-  //   return {
-  //     ...doc.data(), 
-  //     id: doc.id
-  //   }
-  // })
   onSnapshot(collection(db, "products"), (querySnapshot) => {
     const products = querySnapshot.docs.map((doc) => {
       // console.log('doc.id', doc.data());
@@ -35,7 +25,7 @@ componentDidMount () {
          return {
           ...doc.data(), 
           id: doc.id,
-      }
+        }
     });
     // console.log(products);
     this.setState({
@@ -44,35 +34,44 @@ componentDidMount () {
     })
   })
 }
-handleIncreaseQuantity = (product) => {
+handleIncreaseQuantity = async(product) => {
     console.log('Hey increase the qty');
     const { products } = this.state;
     const index = products.indexOf(product);
-    products[index].qty += 1 ;
-
-    this.setState({
-        products: products
+    console.log('products[index].qty+1', products[index].id);
+    // products[index].qty += 1 ;
+    await updateDoc(doc(db, "products", products[index].id), {
+      qty: products[index].qty + 1 
     })
+
+    // this.setState({
+    //     products: products
+    // })
 
 }
 
-handleDecreaseQuantity = (product) => {
+handleDecreaseQuantity = async(product) => {
     console.log('Hey decrease the qty');
     const { products } = this.state;
     const index = products.indexOf(product);
-    products[index].qty -= 1 ;
-    if(products[index].qty >= 0)
-    this.setState({
-        products: products
-    })
+    // products[index].qty -= 1 ;
+    if(products[index].qty > 0){
+      await updateDoc(doc(db, "products", products[index].id), {
+        qty: products[index].qty - 1
+      })
+    }
+    else{
+      return;
+    }
 }
 
-handleDeleteQuantity = (id) => {
+handleDeleteQuantity = async(id) => {
     const { products } = this.state;
-    const items = products.filter( (product) => (product.id !== id));
-    this.setState({
-        products: items
-    })
+    await deleteDoc(doc(db, "products", id));
+    // const items = products.filter( (product) => (product.id !== id));
+    // this.setState({
+    //     products: items
+    // })
 }
 
 getCartCount = () => {
@@ -97,10 +96,10 @@ getCartTotal = () => {
 addProduct = async(e) => {
   console.log('Data has been added');
   await addDoc(collection(db, "products"), {
-    title: "Gaming Device",
-    qty: 3,
-    img: "https://img.etimg.com/thumb/msid-59424968,width-640,resizemode-4,imgsize-182738/nokia-1100.jpg",
-    price: 899,
+    title: "Washing Machine",
+    qty: 1,
+    img: 'https://www.sansuiworld.com/images/washingmachine/front-load.png',
+    price: 1299,
   });
   // console.log('products', products);
   // this.setState({
