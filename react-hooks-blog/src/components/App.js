@@ -1,8 +1,15 @@
-
+import {Routes, Route } from 'react-router-dom'
+import {Navbar, Home, PostDetail, CreatePost} from './index'
 function App() {
   return (
-    <div className="App">
-      <div>start react blog</div>
+    <div className="container">
+      <Navbar />
+      <Routes>
+        <Route  path='/' element={<Home />} />
+        <Route  path='/post/:postId' element={<PostDetail />} />
+        <Route  path='/create-post' element={<CreatePost />} />
+      </Routes>
+      
     </div>
   );
 }
