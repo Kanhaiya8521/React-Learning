@@ -11,7 +11,7 @@ function Home() {
 
     const getAllData = async () => {
       const querySnapshot = await getDocs(collection(db, "posts"));
-      const data = [];
+      // const data = [];
       // console.log('querySnapshot', querySnapshot);
       const posts = querySnapshot.docs.map((doc) => {
         // data.push(doc.data());
@@ -32,7 +32,7 @@ function Home() {
 
   return (
     <div className="home">
-      <h1>Tech Blog</h1>
+      <h1 style={styles.heading}>Tech Blog</h1>
       <div id='blog-by'>Kanna</div>
 
       {posts.map((post, index) => (
@@ -50,3 +50,11 @@ function Home() {
 }
 
 export default Home;
+
+const styles = {
+  heading: {
+    marginTop: 30,
+    fontSize: 56,
+
+  }
+}
