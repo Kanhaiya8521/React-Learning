@@ -1,0 +1,40 @@
+#div1 {
+    width: 200px;
+    height: 200px;
+    background-color: cyan;
+}
+/* #div2 {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: relative;
+    left: 20px;
+    top: 20px;
+} */
+
+/* #div2 {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+} */
+
+/* #div2 {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+} */
+
+#div2 {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    position: sticky;
+    left: 20px;
+    top: 20px;
+}
