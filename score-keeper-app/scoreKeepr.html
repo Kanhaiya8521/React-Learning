@@ -13,19 +13,38 @@
     <script type="text/babel">
         let score = 0;
         let wicket = 0;
+        let responseBallWise = [];
 
         
         function addScore(num) {
-            if (wicket < 10)
-            score += num;
+            if (wicket < 10) {
+                score += num;
+                responseBallWise.push(num);
+            }
             rootElement.render(<App />)
         }
 
         function addWicket() {
-            if (wicket < 10)
+            if (wicket < 10){
                 wicket += 1;
+                responseBallWise.push('w');
+            }
             rootElement.render(<App />)
         }
+
+        const Result = () => (
+            <div>
+                {responseBallWise.map((result, index) => (
+                    <> 
+                    {index % 6 === 0 ? <br /> : null}
+                    <span key={index}>{result === 0 ? <strong> .</strong> : result}</span>
+                        &nbsp;
+                        &nbsp;
+                    </>
+                    ))
+                }
+            </div>
+        );
 
         const ScoreButtons = () => {
             return (
@@ -49,6 +68,7 @@
                     <h1> Score Keeper App </h1>
                     <h1>Score: {score} / {wicket}</h1> 
                     <ScoreButtons />
+                    <Result />
                 </>
                 
             );
