@@ -14,22 +14,34 @@
         let score = 0;
         let wicket = 0;
         let responseBallWise = [];
+        let hit = 0 ;
+        let inputRef = React.createRef();
 
         
         function addScore(num) {
-            if (wicket < 10) {
-                score += num;
-                responseBallWise.push(num);
-            }
+            hit = num;
             rootElement.render(<App />)
         }
 
         function addWicket() {
-            if (wicket < 10){
-                wicket += 1;
-                responseBallWise.push('w');
-            }
+            hit = "w";
             rootElement.render(<App />)
+        }
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            if(hit == "w") {
+                wicket += 1 ;
+            }
+            else
+            score += hit ;
+            responseBallWise.unshift(
+                <span>{`${hit} , ${inputRef.current.value}`}</span>
+            );
+            hit = 0 ;
+            inputRef.current.value = "";
+            console.log(inputRef.current.value);
+            rootElement.render(<App />)
+
         }
 
         const Result = () => (
@@ -61,6 +73,14 @@
                 </div>
             )
         }
+        
+        const Form = () => (
+            <form onSubmit={handleSubmit}>
+                <input value={hit}  />
+                <input ref = {inputRef} placeholder="Add a score" />
+                <button> Submit </button>
+            </form>
+        )
 
         const App = () => {
             return (
@@ -68,7 +88,12 @@
                     <h1> Score Keeper App </h1>
                     <h1>Score: {score} / {wicket}</h1> 
                     <ScoreButtons />
-                    <Result />
+                    <br />
+                    <Form />
+                    <hr />
+                    {responseBallWise.map((result, index) => (
+                        <p key={index}>{result}</p>
+                    ))}
                 </>
                 
             );
